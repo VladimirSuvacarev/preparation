@@ -139,7 +139,7 @@ it("Click On Web Tables", async function(){
     expect(await driver.findElement(By.className('main-header')).getText()).to.eq('Web Tables');
 })
 
-it("Web Tables", async function(){
+/*it("Web Tables", async function(){
     const clickOnYes = await driver.findElement(By.id('addNewRecordButton'));
     await clickOnYes.click();
     
@@ -189,6 +189,6 @@ it("Web Tables", async function(){
 it('Weith', async function() {
     await driver.wait(until.elementLocated(By.id('bbbb')), 3000);
 })
-
+*/
 
 });

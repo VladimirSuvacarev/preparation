@@ -152,39 +152,29 @@ it('Click on alert and test alert', async function(){
 
     expect(await driver.getCurrentUrl()).to.eq('https://www.way2automation.com/way2auto_jquery/alert.php#load_box');
    
-    const clickSimpleAlert = await driver.findElement(By.xpath(`//a[.='Simple Alert']`));
-
-    clickSimpleAlert.click();
-
-    // nikako nisam mogao da selektujem,pa mi je ovo palo na pamet.
-    await clickSimpleAlert.sendKeys(
-        Key.TAB,
-        Key.TAB,
-        Key.ENTER,
-        );
-
-    const clickOKButton = await driver.switchTo().alert();
+    await driver.switchTo().frame(driver.findElement(By.className('demo-frame')));
+    const clickSimpleAlert = await driver.findElement(By.css('button'));
+    await clickSimpleAlert.click();
+    const clickOKButton = driver.switchTo().alert();
     expect(await clickOKButton.getText()).to.contain('I am an alert box!');
     await clickOKButton.accept();
-
+    await driver.switchTo().defaultContent();
+    
     const clickInputAlert = await driver.findElement(By.xpath(`//a[.='Input Alert']`));
     clickInputAlert.click();
 
-    await clickInputAlert.sendKeys(
-        Key.TAB,
-        Key.ENTER,
-        );
+    const IMEKONSTANTE = await driver.findElement(By.css('h1'));
+    await driver.wait(until.elementIsVisible(IMEKONSTANTE));
 
-    const enterYourName = await driver.switchTo().alert();
-    expect(await enterYourName.getText()).to.contain('Please enter your name');
-    enterYourName.sendKeys('Leskovacki Hamburger');
-    await enterYourName.accept();
+    expect(await driver.findElement(By.className('active')).getText()).to.eq('INPUT ALERT');
 
-    //ovde imam problem, a gore sam neke rešavao na načine na koje sam mogao. :) 
-
-    const findText = await driver.findElement(By.id('demo'));
-    expect(await findText.getText()).to.contain('Hello');
-
+    await driver.switchTo().frame(driver.findElement(By.className('demo-frame')));
+    const clickInputAlertButton = await driver.findElement(By.css('button'));
+    await clickInputAlertButton.click();
+    const clickOKButton2 = driver.switchTo().alert();
+    expect(await clickOKButton2.getText()).to.contain('Please enter your name');
+    await clickOKButton2.accept();
+    await driver.switchTo().defaultContent();
 });
 
 
