@@ -245,31 +245,4 @@ it('Click on Frames and Windows and test', async function(){
     expect(await driver.getCurrentUrl()).to.eq('https://www.way2automation.com/way2auto_jquery/frames-and-windows.php#load_box');
 });
 
-it('Click on Open Seprate New Window and test', async function(){
-    const teee = await driver.findElement(By.xpath(`//a[.='Open Seprate New Window']`));
-    await teee.click();
-
-    await teee.sendKeys(
-        Key.TAB,
-        Key.TAB,
-        Key.TAB,
-        Key.ENTER,
-        );
-
-    await driver.switchTo().newWindow('window');
-    await driver.switchTo().frame(driver.findElement(By.className('farme_window')));
-    expect(await driver.findElement(By.css('a')).getText()).to.contain('Open New Seprate Window');
-    await driver.switchTo().defaultContent();
-    await driver.close();
-    await driver.switchTo().window(originalWindow);
-    expect(await driver.getCurrentUrl()).to.eq('https://www.way2automation.com/way2auto_jquery/frames-and-windows.php#load_box');
-
-    await driver.switchTo().defaultContent();   
-    driver.takeScreenshot().then(
-        function (image) {
-        require('fs').writeFileSync('screenshot_with_wait.png', image, 'base64')
-        });
-
-});   
-
 });
