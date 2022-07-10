@@ -244,4 +244,5 @@ it('Click on Frames and Windows and test', async function(){
     await driver.switchTo().window(originalWindow);
     expect(await driver.getCurrentUrl()).to.eq('https://www.way2automation.com/way2auto_jquery/frames-and-windows.php#load_box');
 });
+
 });
